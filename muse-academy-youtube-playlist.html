@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Muse Academy — coming soon</title>
+<meta name="description" content="Practical, build-in-public courses in AI, Vibe Coding and Web Dev. ₹9 to ₹99. In Hinglish.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f7f7;--ink:#14122b;--purple:#6a5cf0;--purple-d:#4a3fcf;--lime:#e8ff8c;--pink:#ff8fe0;--copper:#c98557;--copper-l:#e9b184;
+--sans:'Space Grotesk',system-ui,sans-serif;--mono:'Space Mono',ui-monospace,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--ink);background:var(--bg);overflow-x:hidden;background-image:radial-gradient(#d9d9e3 1.4px,transparent 1.4px);background-size:34px 34px}
+a{color:inherit}button{font-family:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--purple);outline-offset:3px}
+
+nav{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:14px 28px}
+.logo{font-family:'Caveat',cursive;font-size:2.1rem;text-decoration:none;transform:rotate(-3deg)}
+.nav-r{display:flex;align-items:center;gap:18px}
+.lang{background:none;border:0;font:500 1.4rem var(--sans);color:#9a93ff;cursor:pointer}
+.menu{background:var(--lime);border:0;border-radius:40px;padding:12px 34px;font:500 1.5rem var(--sans);cursor:pointer;transition:transform .25s cubic-bezier(.3,1.6,.5,1)}
+.menu:hover{transform:scale(1.08) rotate(-2deg)}
+.overlay{position:fixed;inset:0;z-index:40;background:var(--purple);color:#fff;display:flex;flex-direction:column;justify-content:center;padding:0 8vw;clip-path:circle(0 at calc(100% - 70px) 40px);transition:clip-path .7s cubic-bezier(.7,0,.2,1);pointer-events:none}
+.overlay.open{clip-path:circle(150% at calc(100% - 70px) 40px);pointer-events:auto}
+.overlay a{font-size:clamp(2.2rem,7vw,5.5rem);font-weight:700;text-decoration:none;line-height:1.1;width:fit-content;transition:transform .3s,color .3s}
+.overlay a:hover{color:var(--lime);transform:translateX(18px) skewX(-6deg)}
+.overlay small{font-family:var(--mono);margin-top:28px;opacity:.8}
+
+.hero{min-height:100vh;display:grid;place-items:center;text-align:center;padding:100px 20px 30px}
+.badge{display:inline-block;background:var(--lime);border-radius:30px;padding:6px 16px;font:700 .85rem var(--mono);margin-bottom:14px;animation:wob 3s ease-in-out infinite}
+@keyframes wob{50%{transform:rotate(3deg) scale(1.05)}}
+h1{font-size:clamp(2.6rem,9vw,7rem);line-height:.95;font-weight:700;letter-spacing:-.04em}
+h1 span{display:inline-block;transition:transform .3s cubic-bezier(.3,1.8,.5,1)}
+h1 span:hover{transform:translateY(-14px) rotate(-6deg);color:var(--purple)}
+.sub{font-size:clamp(1rem,2.2vw,1.35rem);max-width:560px;margin:14px auto 0;color:#4b4968}
+.sub b{background:var(--pink);padding:0 8px;border-radius:6px;color:var(--ink)}
+
+/* ===== YOUTUBE PLAYLIST OBJECT ===== */
+.stage{height:400px;perspective:1200px;margin:10px auto 0;width:min(100%,680px);position:relative}
+.rig{position:absolute;left:50%;top:52%;transform-style:preserve-3d}
+.pc{position:absolute;left:-190px;top:-125px;width:380px;height:250px;border-radius:24px;border:2px solid var(--ink);overflow:hidden;text-align:left;
+  transform:translate3d(calc(var(--p)*26px),calc(var(--p)*-36px),calc(var(--p)*-95px));
+  transition:transform .75s cubic-bezier(.3,1.4,.5,1),opacity .5s,filter .5s;
+  background:linear-gradient(160deg,#8f84ff,var(--purple-d));box-shadow:inset 0 0 22px rgba(255,255,255,.3);
+  filter:brightness(calc(1 - var(--p)*.1));pointer-events:none}
+.pc.front{pointer-events:auto;box-shadow:inset 0 0 22px rgba(255,255,255,.35),0 24px 40px rgba(40,30,120,.25)}
+.pc.hid{opacity:0}
+.pc::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.42),transparent 38%);pointer-events:none;border-radius:inherit}
+.th{position:absolute;inset:0 0 70px 0;display:grid;place-items:center}
+.th .em{font-size:5rem;filter:drop-shadow(0 8px 0 rgba(0,0,0,.18));animation:fl 3s ease-in-out infinite}
+@keyframes fl{50%{transform:translateY(-10px) rotate(4deg)}}
+.dur{position:absolute;right:12px;bottom:80px;background:rgba(10,8,30,.85);color:#fff;font:700 .78rem var(--mono);padding:2px 7px;border-radius:6px;z-index:2}
+.cu{position:absolute;border:0;cursor:pointer;background:linear-gradient(135deg,var(--copper-l),var(--copper));box-shadow:0 1px 0 #8a5530;transition:filter .2s,transform .2s;z-index:3}
+.cu:hover{filter:brightness(1.2) saturate(1.3)}
+.cu.hit{animation:hit .45s}
+@keyframes hit{50%{transform:scale(1.25);filter:brightness(1.6)}}
+.play{left:50%;top:calc(50% - 35px);width:74px;height:74px;margin:-37px 0 0 -37px;border-radius:50%;display:grid;place-items:center;animation:pls 2.4s ease-in-out infinite}
+@keyframes pls{50%{box-shadow:0 0 0 14px rgba(233,177,132,.35)}}
+.play::before{content:"";margin-left:8px;border-left:26px solid #fff;border-top:16px solid transparent;border-bottom:16px solid transparent}
+.k1{left:14px;top:14px;width:46px;height:7px}.k2{left:14px;top:14px;width:7px;height:46px}
+.k3{right:14px;top:14px;width:46px;height:7px}.k4{right:14px;top:14px;width:7px;height:46px}
+.pl{right:14px;top:78px;width:56px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:6px;font:700 .75rem var(--mono);color:#fff}
+.pl i{display:block;width:14px;height:10px;background:linear-gradient(#fff 2px,transparent 2px,transparent 4px,#fff 4px,#fff 6px,transparent 6px,transparent 8px,#fff 8px)}
+.prog{position:absolute;left:0;right:0;bottom:70px;height:8px;background:rgba(255,255,255,.3);z-index:3}
+.pf{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--copper),var(--copper-l));position:relative}
+.pf::after{content:"";position:absolute;right:-6px;top:-3px;width:14px;height:14px;border-radius:50%;background:var(--lime);border:2px solid var(--ink)}
+.pc.front .pf{animation:pg var(--ad,4.5s) linear forwards}
+@keyframes pg{to{width:100%}}
+.info{position:absolute;left:0;right:0;bottom:0;height:70px;background:var(--ink);color:#fff;padding:10px 16px;display:flex;align-items:center;gap:12px;z-index:2}
+.info h3{font-size:1.02rem;line-height:1.15}
+.info p{font:.74rem var(--mono);opacity:.75;margin-top:3px}
+.info .pr{margin-left:auto;font:700 1.1rem var(--mono);background:var(--pink);color:var(--ink);padding:5px 11px;border-radius:10px;white-space:nowrap}
+.shadow{position:absolute;left:50%;bottom:6px;width:340px;height:30px;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(40,30,120,.3),transparent);animation:sh 4s ease-in-out infinite}
+@keyframes sh{50%{transform:translateX(-50%) scale(.82);opacity:.7}}
+.hint{font:400 1rem var(--mono);margin-top:4px}
+.hint mark{background:#d6d6ff;padding:2px 4px}
+.hint mark::after{content:"_";animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.dots{display:flex;gap:7px;justify-content:center;margin-top:12px}
+.dots i{width:9px;height:9px;border-radius:50%;background:#cfcdf5;transition:all .3s}
+.dots i.on{background:var(--purple);width:26px;border-radius:6px}
+@media(max-width:640px){.stage{transform:scale(.72);height:320px;margin-top:-10px}}
+
+/* MARQUEE */
+.mq{overflow:hidden;background:var(--ink);color:#fff;padding:18px 0;transform:rotate(-1.6deg);margin:40px -10px}
+.mq.alt{background:var(--lime);color:var(--ink);transform:rotate(1.2deg);margin-top:-6px}
+.track{display:flex;width:max-content;gap:18px;animation:mq 38s linear infinite}
+.mq.alt .track{animation-direction:reverse;animation-duration:46s}
+.mq:hover .track{animation-play-state:paused}
+@keyframes mq{to{transform:translateX(-50%)}}
+.pill{display:flex;align-items:center;gap:10px;border:2px solid currentColor;border-radius:50px;padding:10px 20px;white-space:nowrap;font-weight:500;font-size:1.15rem}
+.pill b{font-family:var(--mono);background:var(--pink);color:var(--ink);border-radius:20px;padding:2px 10px;font-size:.95rem}
+
+.sec{padding:70px 6vw;max-width:1100px;margin:0 auto;text-align:center}
+.sec h2{font-size:clamp(2rem,6vw,4.2rem);letter-spacing:-.03em;line-height:1}
+.price{display:flex;justify-content:center;align-items:center;gap:14px;margin:26px 0;flex-wrap:wrap}
+.pb{font:700 clamp(2.4rem,8vw,5rem) var(--mono);border:3px solid var(--ink);border-radius:26px;padding:6px 28px;background:#fff;box-shadow:7px 7px 0 var(--purple)}
+.pb.b{background:var(--lime);box-shadow:7px 7px 0 var(--pink)}
+.price .to{font:1.4rem var(--mono)}
+.cd{display:flex;justify-content:center;gap:14px;margin-top:30px;flex-wrap:wrap}
+.cd div{background:var(--purple);color:#fff;border-radius:20px;padding:14px 20px;min-width:92px;transition:transform .3s}
+.cd div:hover{transform:translateY(-8px) rotate(-3deg)}
+.cd b{display:block;font:700 2.4rem var(--mono)}.cd small{font-family:var(--mono)}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:30px}
+.chip{border:2px solid var(--ink);background:#fff;border-radius:50px;padding:10px 20px;font-size:1.05rem;animation:bob 4s ease-in-out infinite;animation-delay:calc(var(--i)*-.5s);transition:background .2s}
+.chip:hover{background:var(--lime)}
+@keyframes bob{50%{transform:translateY(-10px)}}
+form{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:26px}
+input{font:1rem var(--mono);padding:16px 22px;border-radius:40px;border:2px solid var(--ink);min-width:min(100%,320px);background:#fff}
+.go{font:700 1.1rem var(--sans);background:var(--purple);color:#fff;border:2px solid var(--ink);border-radius:40px;padding:16px 30px;cursor:pointer;box-shadow:5px 5px 0 var(--ink);transition:transform .15s,box-shadow .15s}
+.go:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--ink)}
+.go:active{transform:translate(4px,4px);box-shadow:1px 1px 0 var(--ink)}
+.msg{font-family:var(--mono);margin-top:16px;min-height:1.5em}
+.fl{position:fixed;right:20px;bottom:24px;z-index:20;display:flex;flex-direction:column;gap:14px}
+.fl a{width:64px;height:64px;border-radius:50%;background:var(--pink);display:grid;place-items:center;transition:transform .3s cubic-bezier(.3,1.8,.5,1)}
+.fl a:hover{transform:scale(1.18) rotate(10deg)}
+.fl svg{width:30px;height:30px;stroke:var(--ink);fill:none;stroke-width:2}
+footer{text-align:center;font-family:var(--mono);padding:30px 20px 60px;color:#6b6a85}
+.coin{position:fixed;left:0;top:0;pointer-events:none;z-index:60;font:700 1.3rem var(--mono);background:var(--lime);border:2px solid var(--ink);border-radius:50%;width:42px;height:42px;display:grid;place-items:center}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="#top">Muse Academy</a>
+  <div class="nav-r"><button class="lang" id="lang" aria-label="Switch language">HI</button><button class="menu" id="menu" aria-expanded="false">MENU</button></div>
+</nav>
+<div class="overlay" id="ov"><a href="#top">Home</a><a href="#price">Pricing</a><a href="#cats">Batches</a><a href="#join">Join waitlist</a><small>[ launching soon ]</small></div>
+
+<main id="top">
+<section class="hero"><div>
+  <span class="badge">COMING SOON</span>
+  <h1 id="title">Learn it.<br>Build it. Ship it.</h1>
+  <p class="sub" id="sub">Practical courses in AI, Vibe Coding and Web Dev. Taught in Hinglish, starting at <b>₹9</b>.</p>
+
+  <div class="stage" id="stage"><div class="shadow"></div><div class="rig" id="rig"></div></div>
+  <div class="dots" id="dots"></div>
+</div></section>
+
+<div class="mq"><div class="track" id="t1"></div></div>
+<div class="mq alt"><div class="track" id="t2"></div></div>
+
+<section class="sec" id="price">
+  <h2>Every course. One tiny price.</h2>
+  <div class="price"><div class="pb" id="p1">₹9</div><span class="to">to</span><div class="pb b" id="p2">₹99</div></div>
+  <p class="sub">Watch videos, build projects, take quizzes, track progress and earn a certificate.</p>
+  <div class="cd" id="cd"></div>
+</section>
+<section class="sec" id="cats"><h2>What we're building</h2><div class="chips" id="chips"></div></section>
+<section class="sec" id="join"><h2>Get early access</h2><p class="sub">Join the waitlist and get the first batch at launch price.</p>
+  <form id="form"><input type="email" id="email" placeholder="you@email.com" required aria-label="Email"><button class="go" type="submit">Notify me</button></form>
+  <p class="msg" id="msg" role="status"></p>
+  <p class="sub" style="font-size:0.9rem;margin-top:10px;">Or email directly: <a href="mailto:prathamvfx20@gmail.com?subject=Get%20Early%20Access%20-%20Muse%20Academy&body=Hi%2C%20I%20would%20like%20early%20access%20to%20Muse%20Academy!" style="text-decoration:underline;font-weight:bold;">prathamvfx20@gmail.com</a></p>
+</section>
+</main>
+
+<div class="fl">
+  <a href="mailto:prathamvfx20@gmail.com?subject=Get%20Early%20Access%20-%20Muse%20Academy&body=Hi%2C%20I%20would%20like%20early%20access%20to%20Muse%20Academy!" aria-label="Email for Early Access"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a>
+  <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8"/></svg></a>
+</div>
+<footer>Building in public. One project at a time. © Muse Academy</footer>
+
+<script>
+const COURSES=[
+ {e:'⚡',t:'Vibe Coding 101',d:'3h 20m',v:'12 videos',p:49},
+ {e:'🛠️',t:'Git & GitHub',d:'2h 10m',v:'9 videos',p:19},
+ {e:'🚀',t:'Build & Ship Your First Website',d:'5h 40m',v:'18 videos',p:99},
+ {e:'🐍',t:'Python Starter',d:'2h 45m',v:'10 videos',p:29},
+ {e:'🤖',t:'AI for Students',d:'1h 15m',v:'6 videos',p:9},
+ {e:'🧠',t:'AI Web Development',d:'4h 30m',v:'15 videos',p:79},
+ {e:'💻',t:'Web Development Basics',d:'3h 50m',v:'14 videos',p:39},
+ {e:'🌐',t:'Deploy Anything',d:'1h 30m',v:'7 videos',p:19},
+ {e:'🧩',t:'SaaS Building',d:'6h 05m',v:'20 videos',p:99}];
+const CATS=['🤖 AI','⚡ Vibe Coding','💻 Web Development','🐍 Python','🧠 AI Web Development','🚀 SaaS Building','🌐 Deployment','🛠️ Git & GitHub'];
+const $=id=>document.getElementById(id),N=COURSES.length,AUTO=4500;
+$('title').innerHTML=$('title').innerHTML.split('<br>').map(l=>[...l].map(c=>c===' '?' ':`<span>${c}</span>`).join('')).join('<br>');
+
+// Build stack
+const hues=[0,12,-12,20,-20,8,-8,16,-16];
+$('rig').innerHTML=COURSES.map((c,i)=>`<div class="pc" data-i="${i}" style="--ad:${AUTO}ms;filter:hue-rotate(${hues[i]}deg)">
+ <div class="th"><span class="em">${c.e}</span></div>
+ <button class="cu k1" aria-label="copper stripe"></button><button class="cu k2" aria-label="copper stripe"></button>
+ <button class="cu k3" aria-label="copper stripe"></button><button class="cu k4" aria-label="copper stripe"></button>
+ <button class="cu play" aria-label="Play next course"></button>
+ <button class="cu pl" aria-label="Playlist"><i></i>${N}</button>
+ <span class="dur">${c.d}</span>
+ <div class="prog"><span class="pf"></span></div>
+ <div class="info"><div><h3>${c.t}</h3><p>Muse Academy · ${c.v}</p></div><span class="pr">₹${c.p}</span></div></div>`).join('');
+$('dots').innerHTML=COURSES.map(()=>'<i></i>').join('');
+const cards=[...document.querySelectorAll('.pc')],dots=[...document.querySelectorAll('.dots i')];
+let cur=0,timer;
+function layout(){cards.forEach((el,i)=>{const p=(i-cur+N)%N;
+  el.style.setProperty('--p',Math.min(p,4));el.style.zIndex=N-p;
+  el.classList.toggle('front',p===0);el.classList.toggle('hid',p>3);
+  if(p!==0){const f=el.querySelector('.pf');f.style.animation='none'}else{const f=el.querySelector('.pf');f.style.animation='';void f.offsetWidth}});
+  dots.forEach((d,i)=>d.classList.toggle('on',i===cur))}
+function next(){
+  const old=cards[cur];
+  // old front card flies out to the left, then tucks to the back
+  old.animate([{transform:old.style.transform||getComputedStyle(old).transform,opacity:1},
+    {transform:'translate3d(-520px,-30px,60px) rotateZ(-16deg)',opacity:0}],{duration:520,easing:'cubic-bezier(.5,0,.8,.4)'});
+  cur=(cur+1)%N;layout();restart()}
+function restart(){clearInterval(timer);timer=setInterval(next,AUTO)}
+layout();restart();
+
+// 3D tilt + idle sway
+const rig=$('rig'),stage=$('stage');let ry=-14,rx=-8,tx=ry,ty=rx,t=0,hover=false;
+stage.addEventListener('mousemove',e=>{const r=stage.getBoundingClientRect();hover=true;tx=-14+((e.clientX-r.left)/r.width-.5)*40;ty=-8+((e.clientY-r.top)/r.height-.5)*-22});
+stage.addEventListener('mouseleave',()=>hover=false);
+(function loop(){t+=.012;if(!hover){tx=-14+Math.sin(t)*14;ty=-8+Math.cos(t*.7)*4}
+ ry+=(tx-ry)*.08;rx+=(ty-rx)*.08;rig.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg)`;requestAnimationFrame(loop)})();
+
+// Copper click → next course + coins
+function coins(x,y){for(let i=0;i<10;i++){const c=document.createElement('div');c.className='coin';c.textContent='₹';document.body.appendChild(c);
+ const a=Math.random()*6.28,d=90+Math.random()*130;
+ c.animate([{transform:`translate(${x-21}px,${y-21}px) scale(.4)`,opacity:1},{transform:`translate(${x-21+Math.cos(a)*d}px,${y-21+Math.sin(a)*d-80}px) scale(1) rotate(${Math.random()*540}deg)`,opacity:0}],
+ {duration:1000+Math.random()*400,easing:'cubic-bezier(.2,.8,.3,1)'}).onfinish=()=>c.remove()}}
+rig.addEventListener('click',e=>{const b=e.target.closest('.cu');if(!b||!b.closest('.front'))return;
+ b.classList.remove('hit');void b.offsetWidth;b.classList.add('hit');coins(e.clientX,e.clientY);next()});
+
+// Marquees, chips, menu, lang
+const pill=c=>`<div class="pill">▶ ${c.t} <b>₹${c.p}</b></div>`;
+$('t1').innerHTML=[...COURSES,...COURSES].map(pill).join('');
+$('t2').innerHTML=[...COURSES].reverse().concat([...COURSES].reverse()).map(pill).join('');
+$('chips').innerHTML=CATS.map((c,i)=>`<span class="chip" style="--i:${i}">${c}</span>`).join('');
+const ov=$('ov'),mb=$('menu');
+mb.onclick=()=>{const o=ov.classList.toggle('open');mb.textContent=o?'CLOSE':'MENU';mb.setAttribute('aria-expanded',o)};
+ov.querySelectorAll('a').forEach(a=>a.onclick=()=>{ov.classList.remove('open');mb.textContent='MENU'});
+let hi=false;$('lang').onclick=()=>{hi=!hi;$('lang').textContent=hi?'EN':'HI';
+ $('sub').innerHTML=hi?'AI, Vibe Coding aur Web Dev ke practical courses. Hinglish mein, sirf <b>₹9</b> se shuru.':'Practical courses in AI, Vibe Coding and Web Dev. Taught in Hinglish, starting at <b>₹9</b>.'};
+
+// Price count-up, countdown, waitlist
+const io=new IntersectionObserver(es=>es.forEach(en=>{if(!en.isIntersecting)return;io.disconnect();
+ [['p1',9],['p2',99]].forEach(([id,n])=>{let s=0;const el=$(id);const st=()=>{s=Math.min(n,s+Math.ceil(n/25));el.textContent='₹'+s;if(s<n)setTimeout(st,40)};st()})}),{threshold:.5});
+io.observe($('p1'));
+const LAUNCH=new Date('2026-11-15T10:00:00+05:30').getTime(); // change launch date here
+function tick(){let d=Math.max(0,LAUNCH-Date.now());
+ $('cd').innerHTML=[['days',864e5],['hrs',36e5],['min',6e4],['sec',1e3]].map(([l,m])=>{const n=Math.floor(d/m);d-=n*m;return `<div><b>${String(n).padStart(2,'0')}</b><small>${l}</small></div>`}).join('')}
+tick();setInterval(tick,1000);
+$('form').onsubmit=e=>{e.preventDefault();const em=$('email').value.trim();
+ try{const l=JSON.parse(localStorage.getItem('muse_waitlist')||'[]');l.push(em);localStorage.setItem('muse_waitlist',JSON.stringify(l))}catch(_){}
+ window.location.href=`mailto:prathamvfx20@gmail.com?subject=${encodeURIComponent('Early Access Request - Muse Academy')}&body=${encodeURIComponent('Please sign me up for Early Access! Email: '+em)}`;
+ $('msg').textContent="You're on the list! Opening email client... 🎉";$('form').reset();
+ const r=$('msg').getBoundingClientRect();coins(r.left+r.width/2,r.top)};
+</script>
+</body>
+</html>
